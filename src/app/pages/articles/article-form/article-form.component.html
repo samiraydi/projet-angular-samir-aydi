@@ -1,0 +1,98 @@
+<div class="container mt-2">
+  <div fxLayout="column" *ngIf="isReady">
+    <div fxLayout="row" fxLayoutAlign="start center" class="mb-2">
+      <h2>
+        {{
+        editId
+          ? 'Edit ' + form.controls["title"].value
+          : 'Create new article'
+        }}
+      </h2>
+    </div>
+    <div fxLayout="row">
+      <mat-card style="width: 100%;">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <div fxLayout="row">
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <input matInput placeholder="Title" formControlName="title" required>
+              <mat-error *ngIf="form.controls['title'].hasError('required')">
+                Title is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="form.controls['title'].hasError('minlength')">
+                Title is <strong>too short</strong>
+              </mat-error>
+              <mat-error *ngIf="form.controls['title'].hasError('maxlength')">
+                Title is <strong>too long</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <mat-label>Select Type</mat-label>
+              <mat-select formControlName="type" required>
+                <mat-option value="NEWSPAPER_ARTICLE">Newspaper Article</mat-option>
+                <mat-option value="BOOK">Book</mat-option>
+                <mat-option value="BOOK_CHAPTER">Book chapter</mat-option>
+                <mat-option value="POST">Post</mat-option>
+              </mat-select>
+              <mat-error *ngIf="form.controls['type'].hasError('required')">
+                Type is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <input matInput placeholder="Link" formControlName="link" required>
+              <mat-error *ngIf="form.controls['link'].hasError('required')">
+                Link is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="form.controls['link'].hasError('pattern')">
+                Link is <strong>not a valid link.</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <input matInput placeholder="PDF link" formControlName="pdfSource" required>
+              <mat-error *ngIf="form.controls['pdfSource'].hasError('required')">
+                PDF link is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="form.controls['pdfSource'].hasError('pattern')">
+                PDF Link is <strong>not a valid link.</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field class="full_width p-2">
+              <mat-label>Contributers</mat-label>
+              <mat-chip-list #contr_chipList multiple>
+                <mat-chip
+                  *ngFor="let id of form.controls['contributers_ids'].value"
+                  (removed)="removeMember(id)"
+                  selectable
+                  removable>
+                  {{ getMemberFullName(id) }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+                <input
+                  #contr_input
+                  placeholder="Select Contributers..."
+                  [matChipInputFor]="contr_chipList"
+                  [matAutocomplete]="contr_auto">
+              </mat-chip-list>
+              <mat-autocomplete #contr_auto="matAutocomplete" (optionSelected)="addMember($event)">
+                <mat-option *ngFor="let member of getfiltredMembers(contr_input.value)" [value]="member.id">
+                  {{ member.surname + ' ' + member.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-stroked-button color="danger" type="cancel" (click)="onCancel(); $event.preventDefault();">
+              Cancel
+            </button>
+            <button mat-stroked-button color="primary" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

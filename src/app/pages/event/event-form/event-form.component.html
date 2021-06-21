@@ -1,0 +1,64 @@
+<div class="container mt-2">
+  <div fxLayout="column" *ngIf="isReady">
+    <div fxLayout="row" fxLayoutAlign="start center" class="mb-2">
+      <h2>
+        {{
+        editId
+          ? 'Edit ' + form.controls["title"].value
+          : 'Create new event'
+        }}
+      </h2>
+    </div>
+    <div fxLayout="row">
+      <mat-card style="width: 100%;">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <div fxLayout="row">
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <input matInput placeholder="Title" formControlName="title" required>
+              <mat-error *ngIf="form.controls['title'].hasError('required')">
+                Title is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="form.controls['title'].hasError('minlength')">
+                Title is <strong>too short</strong>
+              </mat-error>
+              <mat-error *ngIf="form.controls['title'].hasError('maxlength')">
+                Title is <strong>too long</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row">
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <mat-label>Start Date</mat-label>
+              <input matInput [matDatepicker]="startdatepicker" (click)="startdatepicker.open()"
+                formControlName="startDate" required>
+              <mat-error *ngIf="form.controls['startDate'].hasError('required')">
+                Start Date is <strong>required</strong>
+              </mat-error>
+              <mat-datepicker-toggle matSuffix [for]="startdatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #startdatepicker disabled="false"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <mat-label>End Date</mat-label>
+              <input matInput [matDatepicker]="enddatepicker" (click)="enddatepicker.open()"
+                formControlName="endDate" required>
+              <mat-error *ngIf="form.controls['endDate'].hasError('required')">
+                End Date is <strong>required</strong>
+              </mat-error>
+              <mat-datepicker-toggle matSuffix [for]="enddatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #enddatepicker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-stroked-button color="danger" type="cancel" (click)="onCancel(); $event.preventDefault();">
+              Cancel
+            </button>
+            <button mat-stroked-button color="primary" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

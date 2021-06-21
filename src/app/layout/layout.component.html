@@ -1,0 +1,69 @@
+<mat-sidenav-container>
+
+  <!-- The side nav -->
+  <mat-sidenav #drawer fixedInViewport="true" mode="over" opened="false" style="width: 230px;">
+    <div *ngIf="!!IsLoggedIn">
+      <mat-toolbar color="primary" fxLayout fxLayoutGap="16px">
+        <mat-icon>school</mat-icon>
+        <span>IIT</span>
+      </mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item routerLink="/dashboard">Dashboard</a>
+        <a mat-list-item routerLink="/members">Members</a>
+        <a mat-list-item routerLink="/tools">Tools</a>
+        <a mat-list-item routerLink="/articles">Articles</a>
+        <a mat-list-item routerLink="/events">Events</a>
+      </mat-nav-list>
+    </div>
+  </mat-sidenav>
+  <!-- EO: Side nav-->
+
+  <!-- Side nav content-->
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" *ngIf="!!IsLoggedIn">
+      <div fxFlex fxLayout fxLayoutAlign="start center">
+        <button type="button" aria-label="Toggle sidenav" class="toolbar-button" mat-icon-button
+          (click)="drawer.toggle()">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <div>Lab</div>
+
+        <div fxFlex></div>
+
+        <div class="toolbar-separator"></div>
+        <button [matMenuTriggerFor]="userMenu" class="toolbar-button" mat-button>
+          <div fxLayout="row" fxLayoutAlign="center center">
+            <img *ngIf="!!user.photoURL;else iconimg" class="avatar mr-0 mr-sm-16" alt="img"
+              style="border-radius: 50%;width: 32px;" [src]="user.photoURL">
+            <ng-template #iconimg>
+              <mat-icon>account_circle</mat-icon>
+            </ng-template>
+            <span class="username mx-12 p-2" fxHide fxShow.gt-sm>{{user.displayName}} </span>
+            <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
+          </div>
+        </button>
+
+        <mat-menu #userMenu="matMenu" [overlapTrigger]="false">
+
+          <a mat-menu-item *ngIf="userState?.isMember" [routerLink]="'member/' + userState.id">
+            <mat-icon>account_box</mat-icon>
+            <span>Profile</span>
+          </a>
+          <a mat-menu-item (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Logout</span>
+          </a>
+
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+
+    <div class="content mt-80 mx-16">
+      <router-outlet></router-outlet>
+
+    </div>
+
+  </mat-sidenav-content>
+  <!-- EO: Side nav content-->
+
+</mat-sidenav-container>

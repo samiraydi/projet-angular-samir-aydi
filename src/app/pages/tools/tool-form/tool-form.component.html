@@ -1,0 +1,38 @@
+<div class="container mt-2">
+  <div fxLayout="column" *ngIf="isReady">
+    <div fxLayout="row" fxLayoutAlign="start center" class="mb-2">
+      <h2>
+        {{
+        editId
+          ? 'Edit Tool'
+          : 'Create new tool'
+        }}
+      </h2>
+    </div>
+    <div fxLayout="row">
+      <mat-card style="width: 100%;">
+        <form [formGroup]="form" (submit)="onSubmit()">
+          <div fxLayout="row">
+            <mat-form-field class="full_width p-2" appearance="legacy">
+              <input matInput placeholder="Source" formControlName="source" required>
+              <mat-error *ngIf="form.controls['source'].hasError('required')">
+                Source is <strong>required</strong>
+              </mat-error>
+              <mat-error *ngIf="form.controls['source'].hasError('pattern')">
+                Source is <strong>not a valid source.</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <button mat-stroked-button color="danger" type="cancel" (click)="onCancel(); $event.preventDefault();">
+              Cancel
+            </button>
+            <button mat-stroked-button color="primary" type="submit">
+              Save
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

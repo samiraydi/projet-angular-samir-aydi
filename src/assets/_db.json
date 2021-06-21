@@ -1,0 +1,23 @@
+{
+  "ADMIN_ID": "1",
+  "members": [
+    {
+      "cin": "10101010",
+      "email": "samiraydi26@gmail.com",
+      "name": "aydi",
+      "surname": "samir",
+      "birthdate": 822956400000,
+      "cv": "https://www.cdc.gov/polio/stop/pdf/stop-cv-format.pdf",
+      "password": "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+      "grade": "PHD.",
+      "establishment": "IIT",
+      "id": "1",
+      "type": "TEACHER",
+      "createDate": 1569024000000,
+      "modificationDate": 1624000906298
+    }
+  ],
+  "articles": [],
+  "events": [],
+  "tools": []
+}

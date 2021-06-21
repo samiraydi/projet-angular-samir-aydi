@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.min-100 {
+  min-height: calc(100vh - 64px - 3rem);
+}
+
+table,
+form,
+form p mat-form-field {
+  width: 100%;
+}
+
+table th.mat-header-cell:last-of-type,
+table td.mat-cell:last-of-type,
+table td.mat-footer-cell:last-of-type {
+  padding-right: 0;
+}
+
+.mat-column-center {
+  text-align: center !important;
+}
+
+.mat-header-cell,
+.mat-cell {
+  margin: 0.5em;
+}
+
+.full_width {
+  width: 100%;
+}
+
+dl.data-sheet {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+}
+
+dl.data-sheet dt.name {
+  flex: 1 0 30%;
+}
+
+dl.data-sheet dd.value {
+  flex: 1 0 50%;
+  padding-left: 1em;
+}
